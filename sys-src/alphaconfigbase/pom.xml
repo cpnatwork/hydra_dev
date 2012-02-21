@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>promed</groupId>
+	<artifactId>alphaconfigbase</artifactId>
+	<!-- use 'mvn versions:update-child-modules' to change the parent-entry 
+		in the submodules accordingly -->
+	<version>1.0-SNAPSHOT</version>
+
+	<packaging>pom</packaging>
+	<name>alpha-Config Base (Properties, Project Info, Repositories)</name>
+
+	<description>The basic project configuration contains any properties, the project information and the repository configuration.</description>
+
+	<properties>
+		<!-- configuration of maven internals -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
+		<!-- Shared version number: Java infrastructure (date: 2011-02) -->
+		<plugin.compiler.version>2.3.2</plugin.compiler.version>
+		<plugin.jar.version>2.3.2</plugin.jar.version>
+		<jdk.version>1.6</jdk.version>
+		<!-- Shared configuration properties (Surefire) -->
+		<!-- http://www.inze.be/andries/2011/05/11/maven-difference-between-dskiptests-and-dmaven-test-skiptrue/ -->
+		<skipTests>false</skipTests>
+		<maven.test.failure.ignore>true</maven.test.failure.ignore>
+		<!-- Shared configuration properties (non-standard) -->
+		<project.build.minmem>128M</project.build.minmem>
+		<project.build.maxmem>512M</project.build.maxmem>
+		<!-- Shared version number: libraries (date: 2011-02) -->
+		<lib.slf4j.version>1.6.1</lib.slf4j.version>
+		<lib.sysout-over-slf4j.version>1.0.2</lib.sysout-over-slf4j.version>
+		<lib.logback.version>0.9.27</lib.logback.version>
+		<lib.spring.version>3.0.5.RELEASE</lib.spring.version>
+		<lib.commons-lang.version>3.0</lib.commons-lang.version>
+		<lib.commons-cli.version>1.2</lib.commons-cli.version>
+		<lib.commons-io.version>2.0.1</lib.commons-io.version>
+		<lib.commons-exec.version>1.1</lib.commons-exec.version>
+		<lib.joda-time.version>1.6</lib.joda-time.version>
+		<lib.junit.version>4.8.2</lib.junit.version>
+		<lib.testng.version>5.14</lib.testng.version>
+		<lib.mockito.version>1.8.5</lib.mockito.version>
+		<lib.drools.version>5.0.1</lib.drools.version>
+		<lib.jms.version>1.1</lib.jms.version>
+		<lib.xstream.version>1.2.2</lib.xstream.version>
+		<!-- Shared version number: maven plug-ins (date: 2011-11) -->
+		<plugin.site.version>3.0</plugin.site.version>
+		<!-- +search: maven-project-info-reports-plugin -->
+		<plugin.projectinfo.version>2.4</plugin.projectinfo.version>
+		<!-- +search: maven-javadoc-plugin -->
+		<plugin.javadoc.version>2.8.1</plugin.javadoc.version>
+		<!-- +search: maven-surefire-plugin -->
+		<plugin.surefire.version>2.12</plugin.surefire.version>
+		<!-- +search: wagon-ssh-external (extension) -->
+		<plugin.wagon.version>1.0-beta-6</plugin.wagon.version>
+		<!-- +search: maven-pmd-plugin -->
+		<plugin.pmd.version>2.7</plugin.pmd.version> 
+		<!-- +search: maven-jxr-plugin -->
+		<plugin.jxr.version>2.3</plugin.jxr.version>
+		<!-- +search: taglist-maven-plugin -->
+		<plugin.taglist.version>2.4</plugin.taglist.version>
+		<!-- +search: jdepend-maven-plugin -->
+		<plugin.jdepend.version>2.0-beta-2</plugin.jdepend.version>
+		<!-- +search: maven-javancss-plugin -->
+		<plugin.javancss.version>2.0</plugin.javancss.version>
+		<!-- +search: findbugs-maven-plugin -->
+		<plugin.findbugs.version>2.4.0</plugin.findbugs.version> 
+		<!-- +search: maven-checkstyle-plugin -->
+		<plugin.checkstyle.version>2.9</plugin.checkstyle.version>
+		<!-- +search: cobertura-maven-plugin -->
+		<plugin.cobertura.version>2.5.1</plugin.cobertura.version>
+		<!-- +search: dashboard-maven-plugin -->
+		<plugin.dashboard.version>1.0.0-beta-1</plugin.dashboard.version>
+		<!-- http://code.google.com/p/apiviz/ -->
+		<pluginlib.apiviz.version>1.3.1.GA</pluginlib.apiviz.version>
+		<!-- proguard-maven-plugin -->
+		<plugin.pyx4me-proguard.version>2.0.4</plugin.pyx4me-proguard.version>
+		<!-- http://proguard.sourceforge.net/#downloads.html -->
+		<pluginlib.proguard.version>4.6</pluginlib.proguard.version>
+		<!-- Special properties for different plug-ins 'n' tools -->
+		<cobertura.maxmem>${project.build.maxmem}</cobertura.maxmem>
+		<pyx4me-proguard.maxmem>${project.build.maxmem}</pyx4me-proguard.maxmem>
+		<!-- OneJar: the fucking fuck fuck version 1.4.4 has a performance problem 
+			!?!! *grrrr* -->
+		<plugin.onejar.version>1.4.3</plugin.onejar.version>
+		<lib.onejar.version>0.97</lib.onejar.version>
+	</properties>
+	
+	<!-- Maven FAQ: http://maven.apache.org/plugins/maven-javadoc-plugin/faq.html -->
+	<!-- Maven directory structure: http://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html -->
+	<!-- Plug-in overview: http://maven.apache.org/plugins/index.html -->
+	<!-- All maven lifecycle phases: http://www.avajava.com/tutorials/lessons/what-are-the-phases-of-the-maven-default-lifecycle.html -->
+	<!-- Maven built-in properties: http://www.sonatype.com/books/mvnref-book/reference/resource-filtering-sect-properties.html 
+		http://docs.codehaus.org/display/MAVENUSER/MavenPropertiesGuide -->
+
+	<!-- This has to be the URL to the maven site. Children can inherit this from there PARENT (i.e. NOT by any submodule-delegation!). By appending their artifactId. In conclusion, even the config projects need src/site/site.xml et al. because they will be required for navigational purposes.
+	   -->
+	<url>http://www6.informatik.uni-erlangen.de/EN/research/projects/promed/umbrella-mvn-site/</url>
+
+	<organization>
+		<name>Friedrich-Alexander University</name>
+		<url>http://www6.informatik.uni-erlangen.de</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>cpn</id>
+			<name>Christoph P. Neumann</name>
+			<email>cpnatwork@googlemail.com</email>
+			<url>http://www6.informatik.uni-erlangen.de/people/cpn/</url>
+			<organization>ProMed</organization>
+			<organizationUrl>http://www6.informatik.uni-erlangen.de/research/projects/promed/index.ushtml
+			</organizationUrl>
+			<roles>
+				<role>manager</role>
+				<role>chief architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>+1</timezone>
+			<properties>
+				<gtalk>cpnatwork@googlemail.com</gtalk>
+				<picUrl>http://www6.informatik.uni-erlangen.de/people/cpn/img/christoph_web.jpg
+				</picUrl>
+			</properties>
+		</developer>
+	</developers>
+
+	<contributors>
+		<contributor>
+			<name>Prof. Richard Lenz</name>
+			<email>richard.lenz@informatik.uni-erlangen.de</email>
+			<url>http://www6.informatik.uni-erlangen.de/people/lenz/</url>
+			<organization>Friedrich-Alexander University</organization>
+			<organizationUrl>http://www6.informatik.uni-erlangen.de
+			</organizationUrl>
+			<roles>
+				<role>advisor</role>
+			</roles>
+			<timezone>+1</timezone>
+			<properties>
+				<picUrl>http://www6.informatik.uni-erlangen.de/people/lenz/lenz.jpg
+				</picUrl>
+			</properties>
+		</contributor>
+	</contributors>
+
+	<licenses>
+		<license>
+			<name>Apache 2</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
+
+	<mailingLists>
+		<mailingList>
+			<name>alpha-Flow project mailing list</name>
+			<post>dev-promed@i6.informatik.uni-erlangen.de</post>
+		</mailingList>
+	</mailingLists>
+
+	<scm>
+		<connection>scm:svn:svn+ssh://faui6svn.informatik.uni-erlangen.de/proj/svn/projekte/promed/alphaflow/junction/alphaflow-default/devT_otw/sys-src/alphaflow
+		</connection>
+		<developerConnection>scm:svn:svn+ssh://faui6svn.informatik.uni-erlangen.de/proj/svn/projekte/promed/alphaflow/junction/alphaflow-default/devT_otw/sys-src/alphaflow
+		</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+
+	<issueManagement>
+		<system>JIRA</system>
+		<url>http://www6.informatik.uni-erlangen.de/jira/browse/ALPHAFLOW</url>
+	</issueManagement>
+
+	<distributionManagement>
+		<repository>
+		  <id>mvn-repository</id>
+		  <name>ProMed Maven Repository</name>
+		  <!-- use wagon-ssh-external, cf. http://maven.apache.org/plugins/maven-deploy-plugin/examples/deploy-ssh-external.html -->
+		  <url>scpexe://www6.informatik.uni-erlangen.de/usr/local/home/www6/htdocs/research/projects/promed/mvn-repository</url>
+		</repository>
+		<site>
+		  <id>umbrella-mvn-site</id>
+		  <name>ProMed Umbrella Website</name>
+		  <!-- use wagon-ssh-external, cf. http://maven.apache.org/plugins/maven-deploy-plugin/examples/deploy-ssh-external.html -->
+		  <url>scpexe://www6.informatik.uni-erlangen.de/usr/local/home/www6/htdocs/research/projects/promed/umbrella-mvn-site</url>
+		</site>
+	</distributionManagement>
+	
+	<!-- TODO <ciManagement> <system>continuum</system> <url>http://127.0.0.1:8080/continuum</url> 
+		<notifiers> <notifier> <type>mail</type> <sendOnError>true</sendOnError> 
+		<sendOnFailure>true</sendOnFailure> <sendOnSuccess>false</sendOnSuccess> 
+		<sendOnWarning>false</sendOnWarning> <configuration> <address>continuum@127.0.0.1</address> 
+		</configuration> </notifier> </notifiers> </ciManagement> -->
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+		
+		<plugins>
+			<plugin>
+				<!-- MINIMAL site configuration! (Needed, because this is the parent-root, 
+				and thus it is the directory root in the site/site-deploy structure.) -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>${plugin.site.version}</version>
+				<configuration>
+					<!-- all submodules get their site.xml from the umbrella project -->
+					<siteDirectory>${project.basedir}\..\src\site</siteDirectory>
+					<reportPlugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-project-info-reports-plugin</artifactId>
+							<version>${plugin.projectinfo.version}</version>
+							<reportSets>
+								<reportSet>
+									<reports>
+										<report>index</report>
+										<report>summary</report>
+										<report>project-team</report>
+										<report>license</report>
+										<report>dependencies</report>
+										<report>scm</report>
+										<report>mailing-list</report>
+										<report>issue-tracking</report>
+										<!-- <report>cim</report> -->
+									</reports>
+								</reportSet>
+							</reportSets>
+						</plugin>
+					</reportPlugins>
+				</configuration>
+			</plugin>
+		</plugins>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+         <artifactId>wagon-ssh-external</artifactId>
+         <version>${plugin.wagon.version}</version>
+      </extension>
+    </extensions>
+	
+	</build>
+
+	<repositories>
+		<repository>
+			<id>apache-snapshots</id>
+			<name>Apache Snapshots</name>
+			<url>https://repository.apache.org/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+		<!-- <repository> <id>no-commons-logging</id> <name>No commons-logging 
+			Special Repository</name> <layout>default</layout> <url>http://no-commons-logging.zapto.org/mvn2</url> 
+			</repository> -->
+		<repository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Maven Repository Group</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>jboss-deprecated-repository</id>
+			<name>JBoss Deprecated Maven Repository</name>
+			<url>https://repository.jboss.org/nexus/content/repositories/deprecated/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>maven2-repository.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>http://download.java.net/maven/2/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>Codehaus repository</id>
+			<url>http://repository.codehaus.org/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>ossrh</id>
+			<name>Sonatype OSS Repository</name>
+			<url>http://oss.sonatype.org/content/groups/public/</url>
+			<layout>default</layout>
+		</pluginRepository>
+		<pluginRepository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>one-jar</id>
+			<url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	
+</project>

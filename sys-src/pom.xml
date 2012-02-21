@@ -17,7 +17,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>hydra</module>
+		<module>hydra-buildhub</module>
 	</modules>
 
 	<build>

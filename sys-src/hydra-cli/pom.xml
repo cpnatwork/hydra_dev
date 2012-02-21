@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>promed</groupId>
+		<artifactId>alphaconfigcore</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../alphaconfigcore</relativePath>
+	</parent>
+
+	<artifactId>hydra-cli</artifactId>
+	<name>Hydra-CLI</name>
+
+	<properties>
+		<!-- special test ignore for Hydra -->
+		<!-- http://www.inze.be/andries/2011/05/11/maven-difference-between-dskiptests-and-dmaven-test-skiptrue/ -->
+		<skipTests>true</skipTests>
+		<maven.test.failure.ignore>true</maven.test.failure.ignore>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>hydra</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+			<plugins>
+			<plugin>
+				<groupId>org.dstovall</groupId>
+				<artifactId>onejar-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<configuration>
+							<mainClass>org.hydra.startup.StartUpCLI</mainClass>
+							<!-- Optional -->
+							<onejarVersion>${lib.onejar.version}</onejarVersion>
+
+							<!-- Optional, default is false -->
+							<attachToBuild>true</attachToBuild>
+							<!-- Optional, default is "onejar" -->
+							<classifier>onejar</classifier>
+						</configuration>
+						<goals>
+							<goal>one-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
