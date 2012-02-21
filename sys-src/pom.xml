@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>promed</groupId>
+		<artifactId>alphaconfigcore</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>alphaconfigcore</relativePath>
+	</parent>
+
+	<artifactId>promed-umbrella</artifactId>
+	<name>Umbrella Module of ProMed projects</name>
+
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>hydra</module>
+	</modules>
+
+	<build>
+		<!-- USAGE: 'mvn package jxr:jxr site:stage  -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>${plugin.site.version}</version>
+				<inherited>false</inherited>
+				<configuration>
+					<siteDirectory>${project.basedir}/src/site</siteDirectory>
+				</configuration>
+			</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-surefire-report-plugin</artifactId>
+							<version>${plugin.surefire.version}</version>
+							<configuration>
+							<!-- applies singualarily to the promed-umbrella "build" (there is none!) -->
+								<skipTests>true</skipTests>
+							</configuration>
+						</plugin>
+		</plugins>
+	</build>
+</project>
